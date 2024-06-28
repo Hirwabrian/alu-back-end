@@ -35,8 +35,8 @@ def get_employee_todo_progress(id):
     print(f"Employee {employee_name} is done with tasks({number_of_done_tasks}/{total_tasks}):")
 
     # Print the titles of completed tasks
-    for index, task in enumerate(done_tasks, start=1):
-        print(f"\t{index}. {task.get('title')}")
+    for task in done_tasks:
+        print(f"\t {task.get('title')}")
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
