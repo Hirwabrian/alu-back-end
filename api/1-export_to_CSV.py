@@ -1,7 +1,9 @@
 #!/usr/bin/python3
 """
-This script fetches the TODO list progress for a given employee ID from a REST API and exports the data to a CSV file.
+This script fetches the TODO list progress for a given employee ID from a REST API and exports
+ the data to a CSV file.
 """
+
 
 import csv
 import requests
