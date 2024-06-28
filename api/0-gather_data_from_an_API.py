@@ -3,31 +3,49 @@
 This script fetches the TODO list progress for a given employee ID from a REST API.
 """
 
+import requests
+import sys
+
+def get_employee_todo_progress(id):
+    Name = f"https://jsonplaceholder.typicode.com/users/{id}"
+    todos = f"https://jsonplaceholder.typicode.com/todos?userId={id}"
+    
+    user_response = requests.get(Name)
+    if user_response.status_code != 200:
+        print("Error fetching user data")
+        return
+    # Fetch user name
+    user_data = user_response.json()
+    employee_name = user_data.get('name')
+
+    # Fetch todo list 
+    todos_response = requests.get(todos)
+    if todos_response.status_code != 200:
+        print("Error fetching TODO data")
+        return
+    
+    todos_data = todos_response.json()
+
+    # Calculate completed and total tasks
+    total_tasks = len(todos_data)
+    done_tasks = [task for task in todos_data if task.get('completed')]
+    number_of_done_tasks = len(done_tasks)
+
+    # Print the first line of output
+    print(f"Employee {employee_name} is done with tasks({number_of_done_tasks}/{total_tasks}):")
+
+    # Print the titles of completed tasks
+    for index, task in enumerate(done_tasks, start=1):
+        print(f"\t{index}. {task.get('title')}")
 
 if __name__ == "__main__":
-
-    import requests
-    from sys import argv
-    if len(argv) < 2:
-        exit()
-    todos = requests.get(
-        "https://jsonplaceholder.typicode.com/todos?userId={}&completed=true"
-        .format(argv[1]))
-    name = requests.get(
-        "https://jsonplaceholder.typicode.com/users?id={}"
-        .format(argv[1]))
-    name = name.json()
-    name = name[0]["name"]
-    todo = requests.get(
-        "https://jsonplaceholder.typicode.com/todos?userId={}".format(argv[1]))
-    todo = todo.json()
-    todo = len(todo)
-    todos = todos.json()
-    todo_list = []
-
-    for x in todos:
-        todo_list.append("\t {}".format(x["title"]))
-    print("Employee {} is done with tasks({}/{}):"
-          .format(name, len(todos), todo))
-    for y in todo_list:
-        print(y)
+    if len(sys.argv) != 2:
+        sys.exit(1)
+    
+    try:
+        id = int(sys.argv[1])
+    except ValueError:
+        print("Employee ID must be an integer")
+        sys.exit(1)
+    
+    get_employee_todo_progress(id)
