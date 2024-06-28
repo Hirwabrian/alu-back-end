@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 This script fetches the TODO list progress for a given employee ID from a REST API.
 It displays the employee's name, the number of completed tasks, the total number of tasks,
@@ -19,8 +20,8 @@ Output Format:
     Subsequent lines: Titles of completed tasks with one tabulation and one space before each title.
 """
 
-import sys
 import requests
+import sys
 
 def get_employee_todo_progress(employee_id):
     # Base URLs for the API endpoints
