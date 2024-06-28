@@ -1,4 +1,8 @@
-#!/usr/bin/python3i
+#!/usr/bin/python3
+"""
+This script fetches the TODO list progress for a given employee ID from a REST API.
+"""
+
 import requests
 import sys
 
