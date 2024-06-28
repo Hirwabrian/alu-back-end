@@ -40,7 +40,7 @@ def get_employee_todo_progress(id):
     # Export data to JSON file
     json_filename = f"{id}.json"
     with open(json_filename, mode='w') as json_file:
-        json.dump(data, json_file, indent=4)
+        json.dump(data, json_file)
 
 
     
