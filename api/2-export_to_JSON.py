@@ -35,13 +35,12 @@ def get_employee_todo_progress(id):
         {"task": task.get('title'), "completed": task.get('completed'), "username": username}
         for task in todos_data
     ]
-    data = { "USER_ID": tasks_list }
+    data = {str(id): tasks_list}
 
     # Export data to JSON file
     json_filename = f"{id}.json"
     with open(json_filename, mode='w') as json_file:
         json.dump(data, json_file, indent=4)
-    print(f"Data exported to {json_filename}")
 
 
     
