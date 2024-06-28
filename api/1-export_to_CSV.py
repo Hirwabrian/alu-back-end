@@ -30,18 +30,6 @@ def get_employee_todo_progress(id):
         return
     
     todos_data = todos_response.json()
-
-    # Calculate completed and total tasks
-    total_tasks = len(todos_data)
-    done_tasks = [task for task in todos_data if task.get('completed')]
-    number_of_done_tasks = len(done_tasks)
-
-    # Print the first line of output
-    print(f"Employee {employee_name} is done with tasks({number_of_done_tasks}/{total_tasks}):")
-
-    # Print the titles of completed tasks
-    for task in done_tasks:
-        print(f"\t {task.get('title')}")
     # Export data to CSV
     csv_filename = f"{id}.csv"
     with open(csv_filename, mode='w', newline='') as csv_file:
