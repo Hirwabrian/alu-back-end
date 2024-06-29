@@ -1,24 +1,26 @@
 #!/usr/bin/python3
 """
-This script fetches the TODO list progress for a given employee ID from a 
+This script fetches the TODO list progress for a given employee ID from a
 REST API.
 """
 
 import requests
 import sys
 
-
 def get_employee_todo_progress(id):
-    Name = f"https://jsonplaceholder.typicode.com/users/{id}"
-    todos = f"https://jsonplaceholder.typicode.com/todos?userId={id}"
+    user_url = f"https://jsonplaceholder.typicode.com/users/{id}"
+    todos_url = f"https://jsonplaceholder.typicode.com/todos?userId={id}"
 
-    user_response = requests.get(Name)
+    user_response = requests.get(user_url)
+    user_response.raise_for_status()  # Ensure we handle HTTP errors
+
     # Fetch user name
     user_data = user_response.json()
     employee_name = user_data.get('name')
 
-    # Fetch todo list 
-    todos_response = requests.get(todos)
+    # Fetch todo list
+    todos_response = requests.get(todos_url)
+    todos_response.raise_for_status()  # Ensure we handle HTTP errors
 
     todos_data = todos_response.json()
 
@@ -37,6 +39,7 @@ def get_employee_todo_progress(id):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
+        print("Usage: python3 script.py <employee_id>")
         sys.exit(1)
 
     try:
@@ -44,5 +47,5 @@ if __name__ == "__main__":
     except ValueError:
         print("Employee ID must be an integer")
         sys.exit(1)
- 
+
     get_employee_todo_progress(id)
