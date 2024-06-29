@@ -13,18 +13,12 @@ def get_employee_todo_progress(id):
     todos = f"https://jsonplaceholder.typicode.com/todos?userId={id}"
 
     user_response = requests.get(Name)
-    if user_response.status_code != 200:
-        print("Error fetching user data")
-        return
     # Fetch user name
     user_data = user_response.json()
     employee_name = user_data.get('name')
 
     # Fetch todo list 
     todos_response = requests.get(todos)
-    if todos_response.status_code != 200:
-        print("Error fetching TODO data")
-        return
 
     todos_data = todos_response.json()
 
