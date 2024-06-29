@@ -13,18 +13,17 @@ import sys
 def get_employee_todo_progress(id):
     Name = f"https://jsonplaceholder.typicode.com/users/{id}"
     todos = f"https://jsonplaceholder.typicode.com/todos?userId={id}"
- 
+
     user_response = requests.get(Name)
-    
+
     # Fetch user name
     user_data = user_response.json()
     employee_name = user_data.get('name')
     username = user_data.get('username')
 
-
-    # Fetch todo list 
+    # Fetch todo list
     todos_response = requests.get(todos)
-  
+
     todos_data = todos_response.json()
     # Export data to CSV
     csv_filename = f"{id}.csv"
@@ -35,15 +34,14 @@ def get_employee_todo_progress(id):
                              task.get('title')])
 
 
-
 if __name__ == "__main__":
     if len(sys.argv) != 2:
         sys.exit(1)
- 
+
     try:
         id = int(sys.argv[1])
     except ValueError:
         print("Employee ID must be an integer")
         sys.exit(1)
- 
+
     get_employee_todo_progress(id)

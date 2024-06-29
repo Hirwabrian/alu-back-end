@@ -7,6 +7,7 @@ REST API.
 import requests
 import sys
 
+
 def get_employee_todo_progress(id):
     user_url = f"https://jsonplaceholder.typicode.com/users/{id}"
     todos_url = f"https://jsonplaceholder.typicode.com/todos?userId={id}"
@@ -36,6 +37,7 @@ def get_employee_todo_progress(id):
     # Print the titles of completed tasks
     for task in done_tasks:
         print(f"\t {task.get('title')}")
+
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
